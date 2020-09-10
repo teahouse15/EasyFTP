@@ -93,8 +93,49 @@ public class Command {
         }
     }
 
-    public void locate(Connector connector, String filename) {
+    public static void locate(Connector connector, String filename, String path) {
+        List<String> dirLists = new ArrayList<>();
+        int dataPort = CommonUtils.pasv(connector); // 227 Entering Passive Mode (192,168,0,66,192,90).
+        try {
+            Socket socket = new Socket(connector.getIp(), dataPort);
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            connector.cmdWriter.sendCMD("LIST " + path);
+            connector.cmdReader.readCMD(); // 150 Opening data connection for directory list
+            String msg = null;
 
+            br.readLine(); // .
+            br.readLine(); // ..
+
+            // 读取文件列表
+            while ((msg = br.readLine()) != null) {
+                // 先判断此目录下是否有想要查找的文件
+                if (filename.equals(msg.split("\\s+")[8])) {
+                    System.out.println(path + filename);
+                    continue;
+                }
+                if (!msg.split("\\s+")[8].equals(".") && !msg.split("\\s+")[8].equals("..") && msg.startsWith("d")) {
+                    // 将符合标准的文件夹添加到要递归的List中
+                    dirLists.add(path + msg.split("\\s+")[8] + "/");
+                    continue;
+                }
+            }
+            br.close(); // 关闭PASV所打开的被动端口 让服务器结束传输
+            connector.cmdReader.readCMD(); // 226 File Sent Ok
+            // 判断服务器是否关闭连接
+            if (!socket.isClosed()) {
+                socket.close();
+            }
+
+            if (dirLists.size() != 0) {
+                // 递归
+                for (String s : dirLists) {
+//                    System.out.println(s);
+                    locate(connector, filename, s);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
