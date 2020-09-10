@@ -33,6 +33,9 @@ public class Helper {
             case "tree":
                 System.out.println("tree\t\t查看文件树");
                 break;
+            case "locate":
+                System.out.println("locate <filename>\t\t全局查找文件位置");
+                break;
             default:
                 System.out.println("暂无此命令帮助，请检查命令是否有误");
         }
