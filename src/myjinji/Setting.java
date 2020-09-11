@@ -7,9 +7,8 @@ package myjinji;
 public class Setting {
 
     // 0为binary 1为ascii
-    int transMode = 0;
+    static int transMode = 1;
 
     // 0=false;1=true
-    int verbose = 1; // 详细模式，默认打开
-
+    static int verbose = 1; // 详细模式，默认打开
 }
