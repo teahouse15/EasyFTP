@@ -16,10 +16,14 @@ public class Command {
         int dataPort = CommonUtils.pasv(connector);
         connector.cmdWriter.sendCMD("RETR " + file);
         String msg = connector.cmdReader.readCMD();
-        System.out.println(msg);
+        if (Setting.verbose == 1) {
+            System.out.println(msg);
+        }
         new DataPipe(connector.getIp(), dataPort, file, 1).start();
         msg = connector.cmdReader.readCMD();
-        System.out.println(msg);
+        if (Setting.verbose == 1) {
+            System.out.println(msg);
+        }
     }
 
     /**
@@ -31,10 +35,14 @@ public class Command {
         int dataPort = CommonUtils.pasv(connector);
         connector.cmdWriter.sendCMD("STOR " + file);
         String msg = connector.cmdReader.readCMD();
-        System.out.println(msg);
+        if (Setting.verbose == 1) {
+            System.out.println(msg);
+        }
         new DataPipe(connector.getIp(), dataPort, file, 0).start();
         msg = connector.cmdReader.readCMD();
-        System.out.println(msg);
+        if (Setting.verbose == 1) {
+            System.out.println(msg);
+        }
     }
 
     /**
@@ -46,11 +54,17 @@ public class Command {
         int dataPort = CommonUtils.pasv(connector);
         connector.cmdWriter.sendCMD("LIST");
         String msg = connector.cmdReader.readCMD(); // 150 Opening data connection for directory list.
-        System.out.println(msg);
+        if (Setting.verbose == 1) {
+            System.out.println(msg);
+        }
+
 
         new DataPipe(connector.getIp(), dataPort).start();
         msg = connector.cmdReader.readCMD();  // 226 File sent ok
-        System.out.println(msg);
+
+        if (Setting.verbose == 1) {
+            System.out.println(msg);
+        }
     }
 
     /**
@@ -100,7 +114,11 @@ public class Command {
             Socket socket = new Socket(connector.getIp(), dataPort);
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             connector.cmdWriter.sendCMD("LIST " + path);
-            connector.cmdReader.readCMD(); // 150 Opening data connection for directory list
+
+            String message = connector.cmdReader.readCMD(); // 150 Opening data connection for directory list
+            if (Setting.verbose == 1) {
+                System.out.println(message);
+            }
             String msg = null;
 
             br.readLine(); // .
@@ -120,7 +138,12 @@ public class Command {
                 }
             }
             br.close(); // 关闭PASV所打开的被动端口 让服务器结束传输
-            connector.cmdReader.readCMD(); // 226 File Sent Ok
+            message = connector.cmdReader.readCMD(); // 226 File Sent Ok
+
+            if (Setting.verbose == 1) {
+                System.out.println(message);
+            }
+
             // 判断服务器是否关闭连接
             if (!socket.isClosed()) {
                 socket.close();
@@ -129,7 +152,6 @@ public class Command {
             if (dirLists.size() != 0) {
                 // 递归
                 for (String s : dirLists) {
-//                    System.out.println(s);
                     locate(connector, filename, s);
                 }
             }
@@ -139,19 +161,60 @@ public class Command {
     }
 
     /**
+     * 调整FTP传输模式为Binary
+     * @param connector
+     */
+    public static void binary(Connector connector) {
+        if (Setting.transMode == 0) {
+            if (Setting.verbose == 1) {
+                System.out.println("200 Type set to I.");
+            }
+            return;
+        }
+
+        connector.cmdWriter.sendCMD("TYPE A");
+        String msg = connector.cmdReader.readCMD();
+        if (Setting.verbose == 1) {
+            System.out.println(msg);
+        }
+    }
+
+    public static void ascii(Connector connector) {
+        if (Setting.transMode == 1) {
+            if (Setting.verbose == 1) {
+                System.out.println("200 Type set to A.");
+            }
+            return;
+        }
+
+        connector.cmdWriter.sendCMD("TYPE A");
+        String msg = connector.cmdReader.readCMD();
+        if (Setting.verbose == 1) {
+            System.out.println(msg);
+        }
+    }
+
+    /**
+     * 设置是否显示详细信息
+     *
+     */
+    public static void verbose() {
+        if (Setting.verbose == 1) {
+            Setting.verbose = 0;
+            System.out.println("关闭详细模式");
+        } else {
+            Setting.verbose = 1;
+            System.out.println("开启详细模式");
+        }
+    }
+
+
+    /**
      * 状态
      */
     public void status() {
 
     }
-
-    /**
-     * 传输方式 binary ascii
-     */
-    public void transMode() {
-
-    }
-
 
     /**
      * 文件树

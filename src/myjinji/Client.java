@@ -8,8 +8,7 @@ public class Client {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-//        start(args[0], Integer.parseInt(args[1]));
-        start("192.168.13.129", 21);
+        start("192.168.13.130", 21);
     }
 
 
@@ -73,6 +72,12 @@ public class Client {
                 }
             } else if (cmd.equals("tree")) {
                 Command.tree(connector, "/", 0);
+            } else if (cmd.equals("binary")) {
+                Command.binary(connector);
+            } else if (cmd.equals("ascii")) {
+                Command.ascii(connector);
+            } else if (cmd.equals("verbose")) {
+                Command.verbose();
             } else {
                 System.out.println("请检查命令是否有误!");
             }

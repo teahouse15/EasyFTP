@@ -17,7 +17,9 @@ public class CommonUtils {
     public static int pasv(Connector connector) {
         connector.cmdWriter.sendCMD("PASV");
         String msg = connector.cmdReader.readCMD(); // 227 Entering Passive Mode (192,168,0,66,192,90).
-//        System.out.println(msg);
+        if (Setting.verbose == 1) {
+            System.out.println(msg);
+        }
         int dataPort = CommonUtils.getDataPort(msg);
         return dataPort;
     }

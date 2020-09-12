@@ -36,6 +36,21 @@ public class Helper {
             case "locate":
                 System.out.println("locate <filename>\t\t全局查找文件位置");
                 break;
+            case "binary":
+                System.out.println("binary\t\t设置为二进制传输模式");
+                break;
+            case "ascii":
+                System.out.println("ascii\t\t全局查找文件位置");
+                break;
+            case "verbose":
+                System.out.println("verbose\t\t显示详细信息");
+                break;
+            case "mkdir":
+                System.out.println("mkdir <directory>\t\t创建文件夹");
+                break;
+            case "rmdir":
+                System.out.println("rmdir <directory>\t\t删除文件夹");
+                break;
             default:
                 System.out.println("暂无此命令帮助，请检查命令是否有误");
         }
@@ -44,6 +59,6 @@ public class Helper {
     public static void help() {
         System.out.println("命令:\n" +
                 "upload\t\tdownload\t\tls\t\tdir\t\tstatus\n" +
-                "transMode\t\ttree");
+                "binary\t\tascii\t\ttree\t\tlocate\t\tverbose");
     }
 }

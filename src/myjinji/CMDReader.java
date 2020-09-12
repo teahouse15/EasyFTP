@@ -14,7 +14,10 @@ public class CMDReader {
      */
     public String readCMD() {
         if (null == br) {
-            System.out.println("未初始化输入信道");
+            if (Setting.verbose == 1) {
+                System.out.println("未初始化输入信道");
+            }
+
             return "";
         }
         try {
