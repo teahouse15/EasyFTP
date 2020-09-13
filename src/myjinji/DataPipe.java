@@ -27,6 +27,7 @@ public class DataPipe extends Thread {
         try {
             // 打开套接字，连接FTP数据通道
             Socket data = new Socket(ip, port);
+            System.out.println("已连接数据通道.....");
 
             // 上传模式
             if (mode == 0) {

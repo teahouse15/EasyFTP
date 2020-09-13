@@ -14,12 +14,17 @@ public class Command {
      */
     public static void download(String file, Connector connector) throws IOException {
         int dataPort = CommonUtils.pasv(connector);
+
+        new DataPipe(connector.getIp(), dataPort, file, 1).start();
+
         connector.cmdWriter.sendCMD("RETR " + file);
+
+        // 150 Opening BINARY mode data connection for EasyFTP.jar (10007 bytes).
         String msg = connector.cmdReader.readCMD();
+
         if (Setting.verbose == 1) {
             System.out.println(msg);
         }
-        new DataPipe(connector.getIp(), dataPort, file, 1).start();
         msg = connector.cmdReader.readCMD();
         if (Setting.verbose == 1) {
             System.out.println(msg);
@@ -33,12 +38,14 @@ public class Command {
      */
     public static void upload(String file, Connector connector) throws IOException {
         int dataPort = CommonUtils.pasv(connector);
+
+        new DataPipe(connector.getIp(), dataPort, file, 0).start();
+
         connector.cmdWriter.sendCMD("STOR " + file);
         String msg = connector.cmdReader.readCMD();
         if (Setting.verbose == 1) {
             System.out.println(msg);
         }
-        new DataPipe(connector.getIp(), dataPort, file, 0).start();
         msg = connector.cmdReader.readCMD();
         if (Setting.verbose == 1) {
             System.out.println(msg);
@@ -52,14 +59,15 @@ public class Command {
      */
     public static void listFile(Connector connector) {
         int dataPort = CommonUtils.pasv(connector);
+
+        new DataPipe(connector.getIp(), dataPort).start();
+
         connector.cmdWriter.sendCMD("LIST");
         String msg = connector.cmdReader.readCMD(); // 150 Opening data connection for directory list.
         if (Setting.verbose == 1) {
             System.out.println(msg);
         }
 
-
-        new DataPipe(connector.getIp(), dataPort).start();
         msg = connector.cmdReader.readCMD();  // 226 File sent ok
 
         if (Setting.verbose == 1) {
@@ -74,12 +82,12 @@ public class Command {
      */
     public static void listFile(Connector connector, String filename) {
         int dataPort = CommonUtils.pasv(connector);
+        new DataPipe(connector.getIp(), dataPort).start();
         connector.cmdWriter.sendCMD("LIST " + filename);
         String msg = connector.cmdReader.readCMD(); // 150 Opening data connection for directory list.
         System.out.println(msg);
 
 
-        new DataPipe(connector.getIp(), dataPort).start();
         msg = connector.cmdReader.readCMD();  // 226 File sent ok
         System.out.println(msg);
     }
