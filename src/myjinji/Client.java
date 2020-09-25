@@ -19,11 +19,11 @@ public class Client {
         Helper.help();
         while (true) {
             System.out.print("ftp(" + connector.getIp() + ")> ");
-            String command = scanner.nextLine();
+                String command = scanner.nextLine();
 
-            String cmd = command.split(" ")[0];
-            String arg = null;
-            try {
+                String cmd = command.split(" ")[0];
+                String arg = null;
+                try {
                 arg = command.split(" ")[1];
             } catch (ArrayIndexOutOfBoundsException e) { }
 

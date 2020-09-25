@@ -216,6 +216,14 @@ public class Command {
         }
     }
 
+    /**
+     * 创建文件夹
+     * @param connector 连接类
+     * @param dirName 文件夹名字
+     */
+    public static void mkdir(Connector connector, String dirName) {
+
+    }
 
     /**
      * 状态

@@ -40,7 +40,7 @@ public class Helper {
                 System.out.println("binary\t\t设置为二进制传输模式");
                 break;
             case "ascii":
-                System.out.println("ascii\t\t全局查找文件位置");
+                System.out.println("ascii\t\t设置为ascii传输模式");
                 break;
             case "verbose":
                 System.out.println("verbose\t\t显示详细信息");
