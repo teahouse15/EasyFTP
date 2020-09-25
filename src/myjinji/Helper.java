@@ -63,6 +63,9 @@ public class Helper {
             case "open":
                 System.out.println("open <ip>:<port>\t\t关闭当前连接并开启一个新连接");
                 break;
+            case "rename":
+                System.out.println("rename <source> <destination>\t\t重命名文件或文件夹");
+                break;
             default:
                 System.out.println("暂无此命令帮助，请检查命令是否有误");
         }
@@ -72,6 +75,7 @@ public class Helper {
         System.out.println("命令:\n" +
                 "upload\t\tdownload\t\tls\t\tdir\t\tstatus\n" +
                 "binary\t\tascii\t\ttree\t\tlocate\t\tverbose\n" +
-                "quit\t\texit\t\treconnect\t\topen");
+                "quit\t\texit\t\treconnect\t\topen\t\trename\n" +
+                "");
     }
 }

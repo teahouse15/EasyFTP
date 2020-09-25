@@ -217,6 +217,25 @@ public class Command {
     }
 
     /**
+     * 重命名
+     * @param connector
+     * @param source 原文件名
+     * @param destination 目标文件名
+     */
+    public static void rename(Connector connector, String source, String destination) {
+        System.out.println("文件名 " + source + " -> " + destination);
+        connector.cmdWriter.sendCMD("RNFR " + source);
+        String msg = connector.cmdReader.readCMD();
+        if (msg.startsWith("550")) {
+            System.out.println(msg);
+            return;
+        }
+        System.out.println(msg);
+        connector.cmdWriter.sendCMD("RNTO " + destination);
+        System.out.println(connector.cmdReader.readCMD());
+    }
+
+    /**
      * 创建文件夹
      * @param connector 连接类
      * @param dirName 文件夹名字

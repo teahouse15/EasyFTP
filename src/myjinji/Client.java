@@ -61,6 +61,8 @@ public class Client {
                     Command.listFile(connector);
                 }
             } else if (cmd.equals("quit") || cmd.equals("exit")) {
+                connector.cmdWriter.sendCMD("QUIT");
+                System.out.println(connector.cmdReader.readCMD());
                 return;
             } else if (cmd.equals("cd")) {
                 Command.changeDirectory(connector, arg);
@@ -78,6 +80,12 @@ public class Client {
                 Command.ascii(connector);
             } else if (cmd.equals("verbose")) {
                 Command.verbose();
+            } else if (cmd.equals("rename")) {
+                if (null != arg) {
+                    Command.rename(connector, arg, command.split(" ")[2]);
+                } else {
+                    Helper.cmdHelper("rename");
+                }
             } else {
                 System.out.println("请检查命令是否有误!");
             }
