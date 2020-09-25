@@ -86,6 +86,18 @@ public class Client {
                 } else {
                     Helper.cmdHelper("rename");
                 }
+            } else if (cmd.equals("mkdir")) {
+                if (null != arg) {
+                    Command.mkdir(connector, arg);
+                } else {
+                    Helper.cmdHelper("mkdir");
+                }
+            } else if (cmd.equals("rmdir")) {
+                if (null != arg) {
+                    Command.rmdir(connector, arg);
+                } else {
+                    Helper.cmdHelper("rmdir");
+                }
             } else {
                 System.out.println("请检查命令是否有误!");
             }

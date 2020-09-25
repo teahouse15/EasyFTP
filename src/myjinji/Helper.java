@@ -76,6 +76,6 @@ public class Helper {
                 "upload\t\tdownload\t\tls\t\tdir\t\tstatus\n" +
                 "binary\t\tascii\t\ttree\t\tlocate\t\tverbose\n" +
                 "quit\t\texit\t\treconnect\t\topen\t\trename\n" +
-                "");
+                "mkdir\t\trmdir\t\t");
     }
 }

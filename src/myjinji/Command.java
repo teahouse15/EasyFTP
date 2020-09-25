@@ -241,7 +241,32 @@ public class Command {
      * @param dirName 文件夹名字
      */
     public static void mkdir(Connector connector, String dirName) {
+        connector.cmdWriter.sendCMD("MKD " + dirName);
+        String msg = connector.cmdReader.readCMD();
+        if (msg.startsWith("550")) {
+            System.out.println(msg);
+            return;
+        }
+        System.out.println(msg);
+    }
 
+    /**
+     * 删除文件夹
+     * @param connector
+     * @param dirName 文件夹
+     */
+    public static void rmdir(Connector connector, String dirName) {
+        connector.cmdWriter.sendCMD("RMD " + dirName);
+        String msg = connector.cmdReader.readCMD();
+        if (msg.startsWith("550")) {
+            System.out.println(msg);
+            return;
+        }
+        System.out.println(msg);
+    }
+
+    public static void reconnect(Connector connector) {
+        connector.cmdWriter.sendCMD("NOOP");
     }
 
     /**
