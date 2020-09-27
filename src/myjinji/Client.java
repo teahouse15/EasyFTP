@@ -8,7 +8,7 @@ public class Client {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        start("192.168.60.128", 21);
+        start("192.168.13.130", 21);
     }
 
 
