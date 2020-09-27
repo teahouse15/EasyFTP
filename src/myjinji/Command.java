@@ -2,9 +2,7 @@ package myjinji;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Command {
 
@@ -361,14 +359,17 @@ public class Command {
      * 列出所有ftp连接器
      * @param connectorList
      */
-    public static void listFTPConnector(List<Connector> connectorList) {
-
+    public static void listFTPConnector(Map<String, Connector> connectorList) {
+        System.out.println("名称\t\tIP地址\t\t端口");
+        for (Map.Entry<String, Connector> entry : connectorList.entrySet()) {
+            System.out.println(entry.getValue().getName() + "\t\t" + entry.getValue().getIp() + "\t\t" + entry.getValue().getPort());
+        }
     }
 
     /**
      * 切换ftp连接器
      */
-    public static void switchFTP(Connector connector) {
+    public static void switchFTP(String name) {
 
     }
 
