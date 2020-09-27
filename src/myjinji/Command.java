@@ -366,12 +366,15 @@ public class Command {
     }
 
     /**
-     * 切换ftp连接器
+     * 两个服务器之间互传
+     * 从服务器1上下载，上传到服务器2
+     * @param connector1 server1
+     * @param connector2 server2
+     * @param file 文件
      */
-    public static void switchFTP(String name) {
+    public static void one2two(Connector connector1, Connector connector2, String file) {
 
     }
-
 
     /**
      * 文件树

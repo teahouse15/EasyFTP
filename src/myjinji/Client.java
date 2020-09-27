@@ -126,7 +126,7 @@ public class Client {
                 connector = connectorList.get(arg);
                 connector.init();
             } else if (cmd.equals("lscon")) {
-
+                Command.listFTPConnector(connectorList);
             } else {
                 System.out.println("请检查命令是否有误!");
             }

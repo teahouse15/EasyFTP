@@ -62,7 +62,6 @@ public class Connector {
         return false;
     }
 
-
     public String getIp() {
         return ip;
     }
