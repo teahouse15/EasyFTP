@@ -340,6 +340,7 @@ public class Command {
      */
     public static Connector open(String addr) {
         Connector connector = new Connector(addr, 21);
+//        connector.init();
 
         return connector;
     }
