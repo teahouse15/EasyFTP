@@ -8,7 +8,7 @@ public class Client {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        start("192.168.13.130", 21);
+        start("192.168.60.128", 21);
     }
 
 
@@ -33,6 +33,8 @@ public class Client {
                 } else {
                     Helper.help();
                 }
+            } else if (cmd.equals("pwd")) {
+                Command.pwd(connector);
             } else if (cmd.equals("upload")) {
                 if (null != arg) {
                     try {
@@ -98,6 +100,10 @@ public class Client {
                 } else {
                     Helper.cmdHelper("rmdir");
                 }
+            } else if (cmd.equals("reconnect")) {
+                Command.reconnect(connector);
+            } else if (cmd.equals("status")) {
+                Command.status(connector);
             } else {
                 System.out.println("请检查命令是否有误!");
             }

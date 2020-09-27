@@ -267,13 +267,33 @@ public class Command {
 
     public static void reconnect(Connector connector) {
         connector.cmdWriter.sendCMD("NOOP");
+        String msg = connector.cmdReader.readCMD();
+        if (msg.startsWith("421")) {
+            System.out.println("已超时，将自动连接 " + msg);
+            connector.init();
+            return;
+        }
+        System.out.println(msg);
     }
 
     /**
      * 状态
      */
-    public void status() {
+    public static void status(Connector connector) {
+        System.out.println("服务器: " + connector.getIp());
+        String mode = Setting.transMode==1?"Ascii":"Binary";
+        String verbose = Setting.verbose==1?"开":"关";
+        System.out.println("当前传输模式: " + mode + ", 详细模式: " + verbose);
+    }
 
+    public static void pwd(Connector connector) {
+        connector.cmdWriter.sendCMD("PWD");
+        String msg = connector.cmdReader.readCMD();
+        if (msg.startsWith("421")) {
+            System.out.println("连接已超时!");
+            return;
+        }
+        System.out.println(msg);
     }
 
     /**
