@@ -125,6 +125,8 @@ public class Client {
             } else if (cmd.equals("switch")) {
                 connector = connectorList.get(arg);
                 connector.init();
+            } else if (cmd.equals("lscon")) {
+
             } else {
                 System.out.println("请检查命令是否有误!");
             }
