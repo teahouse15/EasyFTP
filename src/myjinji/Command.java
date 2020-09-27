@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Command {
 
@@ -266,14 +267,12 @@ public class Command {
     }
 
     public static void reconnect(Connector connector) {
-        connector.cmdWriter.sendCMD("NOOP");
-        String msg = connector.cmdReader.readCMD();
-        if (msg.startsWith("421")) {
-            System.out.println("已超时，将自动连接 " + msg);
+        if (connector.isConnect()) {
+            System.out.println("连接持续中: " + connector.getIp());
+        } else {
+            System.out.println("已超时，将自动连接");
             connector.init();
-            return;
         }
-        System.out.println(msg);
     }
 
     /**
@@ -297,8 +296,86 @@ public class Command {
     }
 
     /**
+     * 打开一个新连接
+     * @param addr
+     * @param user
+     * @param password
+     */
+    public static Connector open(String addr, String port, String user, String password) {
+        Connector connector = new Connector(addr, Integer.parseInt(port));
+        connector.setUser(user);
+        connector.setPassword(password);
+
+        connector.init();
+        return connector;
+    }
+
+    /**
+     * 打开一个新连接
+     * @param addr
+     * @param addr
+     * @param user
+     */
+    public static Connector open(String addr, String user) {
+        Connector connector = new Connector(addr, 21);
+        connector.setUser(user);
+
+        connector.init();
+        return connector;
+    }
+
+    /**
+     * 打开一个新连接
+     * @param addr
+     * @param port
+     */
+    public static Connector open(String addr, int port) {
+        Connector connector = new Connector(addr, port);
+        connector.init();
+
+        return connector;
+    }
+
+    /**
+     * 打开一个新连接
+     * @param addr
+     */
+    public static Connector open(String addr) {
+        Connector connector = new Connector(addr, 21);
+//        connector.init();
+
+        return connector;
+    }
+
+    /**
+     * 为FTP连接器设置名字
+     * @param connector
+     * @param name
+     */
+    public static void setName(Connector connector, String name) {
+        connector.setName(name);
+        System.out.println(connector.getIp() + " --> " + connector.getName());
+    }
+
+    /**
+     * 列出所有ftp连接器
+     * @param connectorList
+     */
+    public static void listFTPConnector(List<Connector> connectorList) {
+
+    }
+
+    /**
+     * 切换ftp连接器
+     */
+    public static void switchFTP(Connector connector) {
+
+    }
+
+
+    /**
      * 文件树
-     * 劣质命令
+     * 劣质命令(不要使用)
      * @param connector Connecotr
      * @param path 路径
      * @param tabs 所处的目录层级

@@ -5,30 +5,45 @@ import java.net.Socket;
 
 public class Connector {
 
+    // 连接器名称
+    String name;
+
     // IP地址
     String ip;
 
     // 默认端口号
     int port = 21;
 
+    // 用户名
+    String user = "anonymous";
+
+    // 密码
+    String password = "";
+
     String msg;
 
     CMDWriter cmdWriter = new CMDWriter();
     CMDReader cmdReader = new CMDReader();
 
+
+    public Connector(String ip, int port) {
+        this.ip = ip;
+        this.port = port;
+    }
+
     /**
      * 初始化连接信息
      */
-    public void init() {
+    public synchronized void init() {
         try {
             Socket client = new Socket(ip, port);
             cmdReader.br = new BufferedReader(new InputStreamReader(client.getInputStream()));
             cmdWriter.bw = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
 
-            cmdWriter.sendCMD("USER anonymous");
+            cmdWriter.sendCMD("USER " + user);
             msg = cmdReader.readCMD();
             Logger.print("Server", msg);
-            cmdWriter.sendCMD("PASS ");
+            cmdWriter.sendCMD("PASS " + password);
             msg = cmdReader.readCMD();
             Logger.print("Server", msg);
             msg = cmdReader.readCMD();
@@ -38,10 +53,15 @@ public class Connector {
         }
     }
 
-    public Connector(String ip, int port) {
-        this.ip = ip;
-        this.port = port;
+    public boolean isConnect() {
+        this.cmdWriter.sendCMD("NOOP");
+        String msg = this.cmdReader.readCMD();
+        if (msg.startsWith("200")) {
+            return true;
+        }
+        return false;
     }
+
 
     public String getIp() {
         return ip;
@@ -57,5 +77,29 @@ public class Connector {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
