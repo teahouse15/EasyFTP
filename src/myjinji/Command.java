@@ -382,6 +382,13 @@ public class Command {
      * @param file 文件名
      */
     public static void delete(Connector connector, String file) {
+        connector.cmdWriter.sendCMD("DELE " + file);
+        String msg = connector.cmdReader.readCMD();
+        if (msg.startsWith("421")) {
+            System.out.println("421 Timeout.");
+            System.exit(0);
+        }
+        System.out.println(msg);
     }
 
     /**
