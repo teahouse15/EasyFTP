@@ -377,6 +377,14 @@ public class Command {
     }
 
     /**
+     * 删除文件
+     * @param connector
+     * @param file 文件名
+     */
+    public static void delete(Connector connector, String file) {
+    }
+
+    /**
      * 文件树
      * 劣质命令(不要使用)
      * @param connector Connecotr
