@@ -127,6 +127,12 @@ public class Client {
                 connector.init();
             } else if (cmd.equals("lscon")) {
                 Command.listFTPConnector(connectorList);
+            } else if (cmd.equals("delete")) {
+                if (null != arg) {
+                    Command.delete(connector, arg);
+                } else {
+                    Helper.cmdHelper("delete");
+                }
             } else {
                 System.out.println("请检查命令是否有误!");
             }

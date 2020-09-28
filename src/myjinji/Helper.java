@@ -73,6 +73,9 @@ public class Helper {
             case "lscon":
                 System.out.println("lscon\t\t查看所有ftp连接器");
                 break;
+            case "delete":
+                System.out.println("delete <name>\t\t删除文件");
+                break;
             default:
                 System.out.println("暂无此命令帮助，请检查命令是否有误");
         }
@@ -83,6 +86,7 @@ public class Helper {
                 "upload\t\tdownload\t\tls\t\tdir\t\tstatus\n" +
                 "binary\t\tascii\t\ttree\t\tlocate\t\tverbose\n" +
                 "quit\t\texit\t\treconnect\t\topen\t\trename\n" +
-                "mkdir\t\trmdir\t\tsetname\t\tswitch\t\tlscon");
+                "mkdir\t\trmdir\t\tsetname\t\tswitch\t\tlscon\n" +
+                "delete");
     }
 }
