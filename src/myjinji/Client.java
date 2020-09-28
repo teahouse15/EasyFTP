@@ -6,7 +6,7 @@ import java.util.*;
 public class Client {
 
     static Scanner scanner = new Scanner(System.in);
-    static Map<String, Connector> connectorList = new HashMap<>();
+    static Map<Integer, Connector> connectorList = new HashMap<>();
 
     public static void main(String[] args) {
         Client client = new Client();
@@ -17,9 +17,7 @@ public class Client {
     public void start(String ip, int port) {
         Connector connector = new Connector(ip, port);
         connector.init();
-        System.out.print("请输入连接器名称: ");
-        connector.setName(scanner.nextLine());
-        connectorList.put(connector.getName(), connector);
+        connectorList.put(connector.getId(), connector);
 
         Helper.help();
         while (true) {
@@ -110,18 +108,16 @@ public class Client {
                 Command.reconnect(connector);
             } else if (cmd.equals("status")) {
                 Command.status(connector);
-            } else if (cmd.equals("setname")) {
+            } else if (cmd.equals("setid")) {
                 if (null != arg) {
-                    Command.setName(connector, arg);
+                    Command.setID(connector, Integer.parseInt(arg));
                 } else {
                     Helper.cmdHelper("setname");
                 }
             } else if (cmd.equals("open")) {
                 Connector connector1 = Command.open(arg);
-                System.out.print("请输入连接器名称: ");
-                connector1.setName(scanner.nextLine());
 
-                connectorList.put(connector1.getName(), connector1);
+                connectorList.put(connector1.getId(), connector1);
             } else if (cmd.equals("switch")) {
                 connector = connectorList.get(arg);
                 connector.init();

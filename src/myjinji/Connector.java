@@ -2,11 +2,12 @@ package myjinji;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Random;
 
 public class Connector {
 
     // 连接器名称
-    String name;
+    int id;
 
     // IP地址
     String ip;
@@ -48,6 +49,7 @@ public class Connector {
             Logger.print("Server", msg);
             msg = cmdReader.readCMD();
             Logger.print("Server", msg);
+            setId(new Random().nextInt(1000));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,12 +80,12 @@ public class Connector {
         this.port = port;
     }
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUser() {

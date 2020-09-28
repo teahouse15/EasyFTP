@@ -347,21 +347,21 @@ public class Command {
     /**
      * 为FTP连接器设置名字
      * @param connector
-     * @param name
+     * @param id
      */
-    public static void setName(Connector connector, String name) {
-        connector.setName(name);
-        System.out.println(connector.getIp() + " --> " + connector.getName());
+    public static void setID(Connector connector, int id) {
+        connector.setId(id);
+        System.out.println(connector.getIp() + " --> " + connector.getId());
     }
 
     /**
      * 列出所有ftp连接器
      * @param connectorList
      */
-    public static void listFTPConnector(Map<String, Connector> connectorList) {
+    public static void listFTPConnector(Map<Integer, Connector> connectorList) {
         System.out.println("名称\t\tIP地址\t\t端口");
-        for (Map.Entry<String, Connector> entry : connectorList.entrySet()) {
-            System.out.println(entry.getValue().getName() + "\t\t" + entry.getValue().getIp() + "\t\t" + entry.getValue().getPort());
+        for (Map.Entry<Integer, Connector> entry : connectorList.entrySet()) {
+            System.out.println(entry.getValue().getId() + "\t\t" + entry.getValue().getIp() + "\t\t" + entry.getValue().getPort());
         }
     }
 

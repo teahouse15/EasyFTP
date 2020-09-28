@@ -64,8 +64,8 @@ public class Helper {
             case "rename":
                 System.out.println("rename <source> <destination>\t\t重命名文件或文件夹");
                 break;
-            case "setname":
-                System.out.println("setname <name>\t\t为当前连接器设置名字");
+            case "setid":
+                System.out.println("setid <name>\t\t为当前连接器设置编号");
                 break;
             case "switch":
                 System.out.println("switch <name>\t\t切换ftp连接器");
@@ -86,7 +86,7 @@ public class Helper {
                 "upload\t\tdownload\t\tls\t\tdir\t\tstatus\n" +
                 "binary\t\tascii\t\ttree\t\tlocate\t\tverbose\n" +
                 "quit\t\texit\t\treconnect\t\topen\t\trename\n" +
-                "mkdir\t\trmdir\t\tsetname\t\tswitch\t\tlscon\n" +
+                "mkdir\t\trmdir\t\tsetid\t\tswitch\t\tlscon\n" +
                 "delete");
     }
 }
